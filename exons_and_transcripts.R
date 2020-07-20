@@ -14,9 +14,11 @@ data=data.frame(
 
 get_exon_data<-function(genes,data){
   for (gene in genes){
+    g<-genes(edb, filter = GeneNameFilter(gene))
+    id=g$gene_id
     curr=data.frame(
       gene_name=c(gene),
-      ensembl_id=c(0),
+      ensembl_id=c(id),
       #transcripts=c(transcriptsBy(edb,filter = GeneNameFilter(gene))),
       exons=c(exonsBy(edb,filter = GeneNameFilter(gene)))
     )
@@ -27,9 +29,11 @@ get_exon_data<-function(genes,data){
 
 get_transcript_data<-function(genes,data){
   for (gene in genes){
+    g<-genes(edb, filter = GeneNameFilter(gene))
+    id=g$gene_id
     curr=data.frame(
       gene_name=c(gene),
-      ensembl_id=c(0),
+      ensembl_id=c(id),
       transcripts=c(transcriptsBy(edb,filter = GeneNameFilter(gene)))
       #exons=c(exonsBy(edb,filter = GeneNameFilter(gene)))
     )
