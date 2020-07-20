@@ -1,10 +1,15 @@
-library(EnsDb.Mmusculus.v79)
-genes=c("Acvr2a","Bmp4","Bmpr1a","Ctnna1","Ctnnb1","Dicer1","Fgfr2","Inhba","Lef1","Msx1","Pax9","Pitx2","Runx2","Shh","Trp63","Apc","Barx1","Bcl11b","Bmp2","Bmp7","Chuk","Eda","Edar","Edaradd","Evc","Fgf10","Fgf20","Fgf3","Foxi3","Fst","Gas1","Jag2","Lrp4","Msx2","Pdgfra","Rps6ka3","Smo","Sostdc1")
-edb=EnsDb.Mmusculus.v79
-Tx=transcripts(edb, filter = GeneNameFilter("Acvr2a"))
-Ex=exons(edb,filter = GeneNameFilter("Acvr2a"))
-h=head(start(Tx))
-bio_type=head(Tx$tx_biotype)
+library(AnnotationHub)
+
+mouse_query <- query(AnnotationHub(), c("mus musculus","EnsDb",99))
+edb <- mouse_query[[1]]
+
+genes=c("Acvr2a","Bmp4","Bmpr1a","Ctnna1","Ctnnb1","Dicer1","Fgfr2","Inhba","Lef1","Msx1","Pax9","Pitx2","Runx2","Shh","Trp63","Apc","Barx1","Bcl11b","Bmp2","Bmp7","Chuk","Eda","Edar","Edaradd","Evc","Fgf10","Fgf20","Fgf3","Foxi3","Fst","Gas1","Jag2","Lrp4","Msx2",
+        "Pdgfra","Rps6ka3","Smo","Sostdc1","Sp6","Spry2","Spry4","Wnt10a","Yap1","Alpl","Ambn","Amelx","Amtn","Bmi1","Dmp1","Dspp","Enam",
+        "Evc2","Fam20a","Fam20c","Fgfr1","Gdnf","Grem2","Klk4","Lama3","Mmp14","Mmp20","Mtor","Nectin1","Perp","Pkd2","Postn","Slc13a5","Slc39a13","Sp3",
+        "Sppl2a","Acvr2b","Dlx1","Dlx2","Dlx3","Dlx4","Dlx5","Dlx6","Gli2","Gli3","Lhx6","Lhx8","Csf1","Fos","Ostm1","Pthlh","Tcirg1","Traf6")
+#library(EnsDb.Mmusculus.v79)
+#edb=EnsDb.Mmusculus.v79
+
 data=data.frame(
   gene_name=c(),
   ensembl_id=c(),
@@ -33,7 +38,7 @@ get_transcript_data<-function(genes,data){
     id=g$gene_id
     curr=data.frame(
       gene_name=c(gene),
-      ensembl_id=c(id),
+      gene_ensembl_id=c(id),
       transcripts=c(transcriptsBy(edb,filter = GeneNameFilter(gene)))
       #exons=c(exonsBy(edb,filter = GeneNameFilter(gene)))
     )
@@ -66,6 +71,8 @@ get_number_of_transcripts_and_exons<-function(genes,frame){
   frame
   
 }
+  
+  
 exon_data<-get_exon_data(genes,data)
 transcript_data<-get_transcript_data(genes,data)
 number_of_transcripts_and_exons<-get_number_of_transcripts_and_exons(genes,frame)
