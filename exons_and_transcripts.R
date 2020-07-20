@@ -37,7 +37,35 @@ get_transcript_data<-function(genes,data){
   }
   data
 }
+
+frame<-data.frame(
+  gene_name=c(),
+  gene_id=c(),
+  number_of_transcripts=c(),
+  number_of_exons=c()
+)
+
+get_number_of_transcripts_and_exons<-function(genes,frame){
+  for (gene in genes){
+    g<-genes(edb, filter = GeneNameFilter(gene))
+    id=g$gene_id
+    Tx=transcripts(edb, filter = GeneNameFilter(gene),return.type="data.frame")
+    Ex=exons(edb, filter = GeneNameFilter(gene),return.type="data.frame")
+    curr_data=data.frame(
+      gene_name=c(gene),
+      gene_id=c(id),
+      number_of_transcripts=c(nrow(Tx)),
+      number_of_exons=c(nrow(Ex))
+    )
+    frame<-rbind(frame,curr_data)
+  }
+  frame
+  
+}
 exon_data<-get_exon_data(genes,data)
 transcript_data<-get_transcript_data(genes,data)
+number_of_transcripts_and_exons<-get_number_of_transcripts_and_exons(genes,frame)
 write.csv(exon_data,"exons.csv", row.names = FALSE)
 write.csv(transcript_data,"transcripts.csv", row.names = FALSE)
+write.csv(number_of_transcripts_and_exons,"number_of_transcripts_and_exons.csv", row.names = FALSE)
+
