@@ -94,7 +94,59 @@ get_number_of_transcripts_and_exons<-function(edb,genes,frame){
   frame
   
 }
-  
+
+data_frame<-data.frame(
+  gene_name=c(),
+  mouse_gene_id=c(),
+  mouse_number_of_transcripts=c(),
+  mouse_number_of_exons=c(),
+  rat_gene_id=c(),
+  rat_number_of_transcripts=c(),
+  rat_number_of_exons=c()
+)
+ 
+get_mouse_rat_comparison<-function(mouse_edb,rat_edb,genes,data_frame){
+  for (gene in genes){
+    mg<-genes(mouse_edb, filter = GeneNameFilter(gene))
+    rg<-genes(rat_edb, filter = GeneNameFilter(gene))
+    d=data.frame(rg)
+    if (nrow(d)==0){
+      M_id=mg$gene_id
+      M_Tx=transcripts(mouse_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      M_Ex=exons(mouse_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      curr<-data.frame(
+        gene_name=c(gene),
+        mouse_gene_id=c(M_id),
+        mouse_number_of_transcripts=c(nrow(M_Tx)),
+        mouse_number_of_exons=c(nrow(M_Ex)),
+        rat_gene_id=c("NA"),
+        rat_number_of_transcripts=c("NA"),
+        rat_number_of_exons=c("NA")
+      )
+      data_frame<-rbind(data_frame,curr)
+      
+    }
+    else{
+      M_id=mg$gene_id
+      M_Tx=transcripts(mouse_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      M_Ex=exons(mouse_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      R_id=rg$gene_id
+      R_Tx=transcripts(rat_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      R_Ex=exons(rat_edb, filter = GeneNameFilter(gene),return.type="data.frame")
+      curr_data=data.frame(
+        gene_name=c(gene),
+        mouse_gene_id=c(M_id),
+        mouse_number_of_transcripts=c(nrow(M_Tx)),
+        mouse_number_of_exons=c(nrow(M_Ex)),
+        rat_gene_id=c(R_id),
+        rat_number_of_transcripts=c(nrow(R_Tx)),
+        rat_number_of_exons=c(nrow(R_Ex))
+      )
+      data_frame<-rbind(data_frame,curr_data)
+    }
+  }
+  data_frame
+} 
   
 mouse_exon_data<-get_exon_data(mouse_edb,genes,data)
 mouse_transcript_data<-get_transcript_data(mouse_edb,genes,data)
@@ -112,4 +164,7 @@ rat_number_of_transcripts_and_exons<-get_number_of_transcripts_and_exons(rat_edb
 write.csv(rat_exon_data,"rat_exons.csv", row.names = FALSE)
 write.csv(rat_transcript_data,"rat_transcripts.csv", row.names = FALSE)
 write.csv(rat_number_of_transcripts_and_exons,"rat_number_of_transcripts_and_exons.csv", row.names = FALSE)
+
+mouse_rat_comparison<-get_mouse_rat_comparison(mouse_edb,rat_edb,genes,data_frame)
+write.csv(mouse_rat_comparison,"mouse_rat_comparison.csv", row.names = FALSE)
 
