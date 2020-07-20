@@ -3,7 +3,8 @@ library(AnnotationHub)
 mouse_query <- query(AnnotationHub(), c("mus musculus","EnsDb",99))
 edb <- mouse_query[[1]]
 
-genes=c("Acvr2a","Bmp4","Bmpr1a","Ctnna1","Ctnnb1","Dicer1","Fgfr2","Inhba","Lef1","Msx1","Pax9","Pitx2","Runx2","Shh","Trp63","Apc","Barx1","Bcl11b","Bmp2","Bmp7","Chuk","Eda","Edar","Edaradd","Evc","Fgf10","Fgf20","Fgf3","Foxi3","Fst","Gas1","Jag2","Lrp4","Msx2",
+genes=c("Acvr2a","Bmp4","Bmpr1a","Ctnna1","Ctnnb1","Dicer1","Fgfr2","Inhba","Lef1","Msx1","Pax9","Pitx2","Runx2","Shh","Trp63","Apc","Barx1","Bcl11b",
+        "Bmp2","Bmp7","Chuk","Eda","Edar","Edaradd","Evc","Fgf10","Fgf20","Fgf3","Foxi3","Fst","Gas1","Jag2","Lrp4","Msx2",
         "Pdgfra","Rps6ka3","Smo","Sostdc1","Sp6","Spry2","Spry4","Wnt10a","Yap1","Alpl","Ambn","Amelx","Amtn","Bmi1","Dmp1","Dspp","Enam",
         "Evc2","Fam20a","Fam20c","Fgfr1","Gdnf","Grem2","Klk4","Lama3","Mmp14","Mmp20","Mtor","Nectin1","Perp","Pkd2","Postn","Slc13a5","Slc39a13","Sp3",
         "Sppl2a","Acvr2b","Dlx1","Dlx2","Dlx3","Dlx4","Dlx5","Dlx6","Gli2","Gli3","Lhx6","Lhx8","Csf1","Fos","Ostm1","Pthlh","Tcirg1","Traf6")
