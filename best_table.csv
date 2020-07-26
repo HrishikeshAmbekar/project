@@ -1,4 +1,4 @@
-"gene_name","class","HapploSufficient","mouse_number_of_transcripts","mouse_number_of_exons","rat_number_of_transcripts","rat_number_of_exons","rnorvegicus_homolog_perc_id","rnorvegicus_homolog_perc_id_r1","rnorvegicus_homolog_goc_score","rnorvegicus_homolog_wga_coverage","rnorvegicus_homolog_orthology_confidence"
+"gene_name","class","HapploSufficient","ms_transcripts","ms_exons","rat_transcripts","rat_exons","perc_id","perc_id_r1","goc_score","wga_coverage","confidence"
 "Acvr2b","double","",6,25,1,11,95.1493,99.6094,100,100,1
 "Dlx1","double","",6,15,1,3,100,100,100,100,1
 "Dlx2","double","",2,5,1,3,98.494,98.494,100,100,1
